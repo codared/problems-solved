@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+#include <set>
+#include <vector>
+#include <algorithm>
+
+int main() {
+	// your code goes here
+	int  n;
+	cin >>  n;
+	
+	int  m;
+	cin >> m;
+	
+	vector<int> ticketPrice(n);
+	vector<int>  customerPrice(m);
+	set<pair<int,int>> sortedTickets;
+	
+	for(int i = 0; i < n; i++){
+		cin >> ticketPrice[i];
+		sortedTickets.insert({ticketPrice[i],i});
+	}
+	for(int j = 0; j < m; j++){
+		cin >> customerPrice[j];
+	}
+	for(int j =  0; j < m; j++){
+		auto ticket = sortedTickets.lower_bound({customerPrice[j]+1, 0});
+		if (ticket == sortedTickets.begin()){
+			cout << -1 << endl;
+		} else {
+			ticket--;
+			cout << (*ticket).first << endl;
+			sortedTickets.erase(ticket);
+		}
+	}
+	
+	return 0;
+}
