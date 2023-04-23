@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+#include <set>
+
+
+int main() {
+	// your code goes here
+	int x;
+	cin >> x;
+	
+	int n;
+	cin >> n;
+	
+	set<int> pos;
+	multiset<int> lengthz;
+	
+	pos.insert(0);
+	pos.insert(x);
+	lengthz.insert(x - 0);
+	
+	for(int i = 0;  i < n; i++){
+		int added;
+		cin >> added;
+		pos.insert(added);
+		auto itera = pos.find(added);
+		int previousValue = *prev(itera);
+		int nextValue = *next(itera);
+		lengthz.erase(lengthz.find(nextValue - previousValue));
+		lengthz.insert(added - previousValue);
+		lengthz.insert(nextValue - added);
+		cout << *lengthz.rbegin() << endl;
+	}
+	return 0;
+}
